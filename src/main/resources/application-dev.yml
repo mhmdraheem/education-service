@@ -16,3 +16,6 @@ spring:
     properties:
       hibernate:
         show_sql: true
+
+jwt:
+  signing-Key: va6w3Fr1goCcrues0p//L3fBWWYxG3u5DF4YKxXgEqtXGNjdMrbCVLRXhVd4b/tL

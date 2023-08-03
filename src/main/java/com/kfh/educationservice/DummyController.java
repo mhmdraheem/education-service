@@ -1,6 +1,8 @@
 package com.kfh.educationservice;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,8 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class DummyController {
 
-    @GetMapping
-    public String helloWorld() {
-        return "Hello World";
+    @Secured({"ROLE_STUDENT"})
+    @GetMapping("/student")
+    public String helloStudent() {
+        return "Hello Student";
+    }
+
+    @Secured({"ROLE_INSTRUCTOR"})
+    @GetMapping("/instructor")
+    public String helloInstructor() {
+        return "Hello instructor";
+    }
+
+    @PostMapping("/register")
+    public String register() {
+        return "registration";
+    }
+
+    @PostMapping("/authenticate")
+    public String authenticate() {
+        return "authentication";
     }
 }
