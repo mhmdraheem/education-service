@@ -11,7 +11,7 @@ spring:
     url: jdbc:mysql://localhost:3306/education-service?createDatabaseIfNotExist=true
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     open-in-view: false
     properties:
       hibernate:
