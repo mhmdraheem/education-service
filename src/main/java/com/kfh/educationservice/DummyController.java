@@ -22,6 +22,12 @@ public class DummyController {
         return "Hello instructor";
     }
 
+    @Secured({"ROLE_ADMIN"})
+    @GetMapping("/admin")
+    public String helloAdmin() {
+        return "Hello admin";
+    }
+
     @PostMapping("/register")
     public String register() {
         return "registration";

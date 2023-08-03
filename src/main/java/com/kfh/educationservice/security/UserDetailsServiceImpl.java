@@ -1,28 +1,40 @@
 package com.kfh.educationservice.security;
 
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import com.kfh.educationservice.UserRepository;
+import com.kfh.educationservice.entity.user.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserDetailsServiceImpl extends InMemoryUserDetailsManager {
+import java.util.List;
 
-    public UserDetailsServiceImpl() {
-        super(User.builder()
-                        .username("student@mail.com")
-                        .password("{bcrypt}$2a$10$ltrMwsyAluK23.bt/FfrtOThoP9CYiqPf1A9f0fFsWuoP6gyg5I0u")
-                        .roles("STUDENT")
-                        .build(),
-                User.builder()
-                        .username("instructor@mail.com")
-                        .password("{bcrypt}$2a$10$upEmk0UFWyZeLEtz5A7e.eGQZYmpTJfmeUaFZ9LUep7reOmc01Wvq")
-                        .roles("INSTRUCTOR")
-                        .build(),
-                User.builder()
-                        .username("admin@mail.com")
-                        .password("{bcrypt}$2a$10$i5Roeu929jT.UvTGK0L0nu6bJl/fycATSBlF3XiNFtoOwCn.eYg5e")
-                        .roles("ADMIN")
-                        .build()
-        );
+@Service
+@RequiredArgsConstructor
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = findUserByEmail(email);
+        List<GrantedAuthority> authorities = getUserAuthorities(user);
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(), user.getPassword(), true, true, true,
+                true, authorities);
+    }
+
+    private User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email).orElseThrow(() -> {
+            throw new UsernameNotFoundException("No user found with email: " + email);
+        });
+    }
+
+    private List<GrantedAuthority> getUserAuthorities(User user) {
+        return List.of(new SimpleGrantedAuthority(user.getRole().getRoleName().name()));
     }
 }

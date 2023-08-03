@@ -2,11 +2,13 @@ package com.kfh.educationservice.entity.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "user_role")
+@Getter
 public class UserRole {
 
     @Id

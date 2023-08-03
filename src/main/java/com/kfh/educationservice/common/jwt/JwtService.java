@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +22,6 @@ public class JwtService {
         this.jwtParser = Jwts.parserBuilder().setSigningKey(jwtSigningKey.getBytes()).build();
     }
 
-    @PostConstruct
-    public void init() {
-        System.out.println(createToken("student@mail.com"));
-        System.out.println(createToken("instructor@mail.com"));
-    }
-
     public String createToken(String userName) {
         long currentTime = System.currentTimeMillis();
         Date issuedAt = new Date(currentTime);
@@ -45,8 +38,6 @@ public class JwtService {
                 .signWith(signingKey)
                 .compact();
     }
-
-
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
