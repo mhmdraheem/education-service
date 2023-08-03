@@ -1,4 +1,4 @@
-package com.kfh.educationservice;
+package com.kfh.educationservice.repository.user;
 
 import com.kfh.educationservice.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

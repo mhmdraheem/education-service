@@ -1,7 +1,7 @@
 package com.kfh.educationservice.security;
 
-import com.kfh.educationservice.UserRepository;
 import com.kfh.educationservice.entity.user.User;
+import com.kfh.educationservice.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
