@@ -1,7 +1,7 @@
 package com.kfh.educationservice.controller;
 
 import com.kfh.educationservice.dto.CourseDto;
-import com.kfh.educationservice.service.CourseService;
+import com.kfh.educationservice.service.course.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

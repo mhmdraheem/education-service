@@ -1,4 +1,4 @@
-package com.kfh.educationservice.service;
+package com.kfh.educationservice.service.course;
 
 import com.kfh.educationservice.common.exception.type.CourseNotFoundException;
 import com.kfh.educationservice.common.exception.type.DuplicateCourseException;
