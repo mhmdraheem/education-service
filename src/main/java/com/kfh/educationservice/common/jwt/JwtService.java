@@ -26,7 +26,7 @@ public class JwtService {
         long currentTime = System.currentTimeMillis();
         Date issuedAt = new Date(currentTime);
 
-        final long JWT_TOKEN_VALIDITY = TimeUnit.MINUTES.toMillis(5);
+        final long JWT_TOKEN_VALIDITY = TimeUnit.DAYS.toMillis(1);
         Date expirationDate = new Date(currentTime + JWT_TOKEN_VALIDITY);
 
         SecretKey signingKey = Keys.hmacShaKeyFor(jwtSigningKey.getBytes());
