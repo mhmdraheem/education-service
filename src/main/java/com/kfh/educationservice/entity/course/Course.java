@@ -32,7 +32,7 @@ public class Course {
     private String description;
 
     @ManyToMany(mappedBy = "courses")
-    private Set<User> courses = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

@@ -63,12 +63,12 @@ public class User {
 
     public void addCourse(Course course) {
         courses.add(course);
-        course.getCourses().add(this);
+        course.getUsers().add(this);
     }
 
     public void removeCourse(Course course) {
         courses.remove(course);
-        course.getCourses().remove(this);
+        course.getUsers().remove(this);
     }
 
     @Override

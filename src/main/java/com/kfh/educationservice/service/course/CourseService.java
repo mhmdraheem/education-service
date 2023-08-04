@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -74,5 +75,9 @@ public class CourseService {
     public void deleteCourse(Long courseId) {
         Course course = getCourseById(courseId);
         courseRepository.delete(course);
+    }
+
+    public Set<Course> getCoursesByIdIn(Set<Long> coursesIds) {
+        return courseRepository.findByIdIn(coursesIds);
     }
 }

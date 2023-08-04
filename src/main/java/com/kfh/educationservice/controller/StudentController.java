@@ -1,6 +1,7 @@
 package com.kfh.educationservice.controller;
 
 import com.kfh.educationservice.dto.StudentCourseDto;
+import com.kfh.educationservice.dto.UpdateStudentCoursesDto;
 import com.kfh.educationservice.service.student.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -39,4 +40,10 @@ public class StudentController {
         studentService.assignCourseToStudent(courseId);
     }
 
+    @Secured({"ROLE_STUDENT"})
+    @PutMapping(path = "/course")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateStudentCourses(@RequestBody UpdateStudentCoursesDto updateStudentCoursesDto) {
+        studentService.updateStudentCourses(updateStudentCoursesDto);
+    }
 }

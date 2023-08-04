@@ -1,7 +1,9 @@
 package com.kfh.educationservice.service.student;
 
+import com.kfh.educationservice.common.exception.type.InvalidCourseListException;
 import com.kfh.educationservice.dto.CourseDto;
 import com.kfh.educationservice.dto.StudentCourseDto;
+import com.kfh.educationservice.dto.UpdateStudentCoursesDto;
 import com.kfh.educationservice.entity.course.Course;
 import com.kfh.educationservice.entity.user.User;
 import com.kfh.educationservice.repository.user.UserRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -60,5 +63,24 @@ public class StudentService {
         User student = userService.getAuthenticatedUser();
         Course course = courseService.getCourseById(courseId);
         student.addCourse(course);
+    }
+
+    @Transactional
+    public void updateStudentCourses(UpdateStudentCoursesDto updateStudentCoursesDto) {
+        User student = userService.getAuthenticatedUser();
+
+        Set<Course> currentCourses = student.getCourses();
+        Set<Long> newCoursesIds = updateStudentCoursesDto.getCoursesIds();
+        Set<Course> newCourses = courseService.getCoursesByIdIn(newCoursesIds);
+
+        if(newCoursesIds.size() > newCourses.size()) {
+            throw new InvalidCourseListException(newCoursesIds.toString());
+        }
+
+        // deleted removed courses
+        currentCourses.removeIf(course -> !newCourses.contains(course));
+
+        // save new courses
+        currentCourses.addAll(newCourses);
     }
 }
