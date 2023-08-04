@@ -21,7 +21,7 @@ public class UserRole {
     private Role roleName;
 
     public enum Role {
-        ROLE_STUDENT, ROLE_INSTRUCTOR, ROLE_ADMIN
+        ROLE_STUDENT
     }
 
     @Override

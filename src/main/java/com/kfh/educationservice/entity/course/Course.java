@@ -1,6 +1,5 @@
 package com.kfh.educationservice.entity.course;
 
-import com.kfh.educationservice.entity.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +16,7 @@ public class Course {
     private Long id;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @NotNull
@@ -26,21 +25,16 @@ public class Course {
 
     private String description;
 
-    @NotNull
-    @JoinColumn(name = "instructor_id", nullable = false)
-    @ManyToOne
-    private User instructor;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return Objects.equals(name, course.name) && Objects.equals(instructor, course.instructor);
+        return Objects.equals(name, course.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, instructor);
+        return Objects.hash(name);
     }
 }

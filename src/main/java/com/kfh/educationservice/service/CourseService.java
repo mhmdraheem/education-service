@@ -1,7 +1,6 @@
 package com.kfh.educationservice.service;
 
 import com.kfh.educationservice.dto.CourseDto;
-import com.kfh.educationservice.dto.InstructorDto;
 import com.kfh.educationservice.entity.course.CourseDetailsProjection;
 import com.kfh.educationservice.repository.course.CourseRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,17 +21,10 @@ public class CourseService {
     }
 
     private CourseDto createCourseDto(CourseDetailsProjection projection) {
-        InstructorDto instructorDto = InstructorDto.builder()
-                .englishName(projection.getInstructorName())
-                .email(projection.getInstructorEmail())
-                .telephone(projection.getInstructorPhone())
-                .build();
-
         return CourseDto.builder()
                 .name(projection.getCourseName())
                 .price(projection.getCoursePrice())
                 .description(projection.getCourseDescription())
-                .instructor(instructorDto)
                 .build();
     }
 }

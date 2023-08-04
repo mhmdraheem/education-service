@@ -15,18 +15,17 @@ public class CourseDto {
     private final String name;
     private final BigDecimal price;
     private final String description;
-    private final InstructorDto instructor;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseDto course = (CourseDto) o;
-        return Objects.equals(name, course.name) && Objects.equals(instructor, course.instructor);
+        return Objects.equals(name, course.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, instructor);
+        return Objects.hash(name);
     }
 }

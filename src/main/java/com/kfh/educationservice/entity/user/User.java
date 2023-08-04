@@ -49,15 +49,6 @@ public class User {
     @ManyToOne
     private UserRole role;
 
-    @NotNull
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Type type;
-
-    public enum Type {
-        STUDENT, INSTRUCTOR, ADMIN
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

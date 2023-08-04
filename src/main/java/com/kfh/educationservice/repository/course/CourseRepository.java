@@ -12,13 +12,10 @@ import org.springframework.stereotype.Repository;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query("""
-            select 
+            select
                 c.name as courseName,
                 c.description as courseDescription,
-                c.price as coursePrice,
-                c.instructor.englishName as instructorName,
-                c.instructor.email as instructorEmail,
-                c.instructor.telephone as instructorPhone
+                c.price as coursePrice
             from Course c
             """)
     Page<CourseDetailsProjection> findCoursesPage(PageRequest pageRequest);
