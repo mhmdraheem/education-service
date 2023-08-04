@@ -7,8 +7,9 @@
 * spring boot 3.1.1
 
 ### How to run the application:
-`java -jar -Dspring.profiles.active=dev`
+`java -jar -Dspring.profiles.active=dev -Ddatabase.user=<your-user-name-here> -Ddatabase.password=<your-password-here>`
 
+###
 ### Swagger endpoint
 `http://localhost:8080/swagger-ui/index.html#/`
 
@@ -37,12 +38,20 @@
 
 ### Notes:
 * The application comes with testing data for courses, students, and an admin data. 
-* The registration API only supports students. To use the endpoints that require admin previlage, use the below credentials
+* The registration API only supports students. To use the endpoints that require admin previlage, use the admin credentials
 in the `/api/user/authenticate` endpoint to get access token
 
+#### Admin credentials
 | Username         | password  |
 |------------------|-----------|
 | admin@mail.com   | admin@123 |
+
+#### Testing students credentials
+
+| Username         | password    |
+|------------------|-------------|
+| mohamed@mail.com | mohamed@123 |
+| zein@mail.com    | zein@123    |
 
 * Access tokens expiration: 1 day
 * The repo contains a postman collection with the all endpoints samples
