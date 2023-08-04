@@ -3,6 +3,7 @@ package com.kfh.educationservice.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -19,13 +21,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
 
-    private static final String[] AUTH_WHITELIST = {
-             "/v3/api-docs/**",
-            "/swagger-ui/**",
-
-            "/api/register",
-            "/api/authenticate"
-    };
+    private static final String[] SWAGGER_ENDPOINTS = { "/v3/api-docs/**", "/swagger-ui/**" };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -34,7 +30,12 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(AUTH_WHITELIST).permitAll()
+                        .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
+                        .requestMatchers(
+                                new AntPathRequestMatcher("/api/register", HttpMethod.POST.name()),
+                                new AntPathRequestMatcher("/api/authenticate", HttpMethod.POST.name()),
+                                new AntPathRequestMatcher("/api/course", HttpMethod.GET.name())
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
