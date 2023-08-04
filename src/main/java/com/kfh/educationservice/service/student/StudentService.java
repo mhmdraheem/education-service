@@ -5,6 +5,7 @@ import com.kfh.educationservice.dto.StudentCourseDto;
 import com.kfh.educationservice.entity.course.Course;
 import com.kfh.educationservice.entity.user.User;
 import com.kfh.educationservice.repository.user.UserRepository;
+import com.kfh.educationservice.service.course.CourseService;
 import com.kfh.educationservice.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ public class StudentService {
 
     private final UserService userService;
     private final UserRepository userRepository;
+    private final CourseService courseService;
 
     public Page<StudentCourseDto> listStudentsCourses(int pageNum, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNum, pageSize);
@@ -51,5 +53,12 @@ public class StudentService {
     public void deleteStudent(Long studentId) {
         userService.validateUserExists(studentId);
         userRepository.deleteById(studentId);
+    }
+
+    @Transactional
+    public void assignCourseToStudent(Long courseId) {
+        User student = userService.getAuthenticatedUser();
+        Course course = courseService.getCourseById(courseId);
+        student.addCourse(course);
     }
 }

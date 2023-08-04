@@ -61,7 +61,7 @@ public class CourseService {
         populateCourseEntity(course, courseDto);
     }
 
-    private Course getCourseById(Long id) {
+    public Course getCourseById(Long id) {
         Optional<Course> courseOptional = courseRepository.findById(id);
         if(courseOptional.isEmpty()) {
             throw new CourseNotFoundException(String.valueOf(id));

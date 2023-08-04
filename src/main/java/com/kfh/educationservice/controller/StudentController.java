@@ -31,4 +31,12 @@ public class StudentController {
     public void deleteStudent(@PathVariable Long studentId) {
         studentService.deleteStudent(studentId);
     }
+
+    @Secured({"ROLE_STUDENT"})
+    @PutMapping(path = "/course/{courseId}/assign")
+    @ResponseStatus(HttpStatus.OK)
+    public void assignCourseToStudent(@PathVariable Long courseId) {
+        studentService.assignCourseToStudent(courseId);
+    }
+
 }
