@@ -1,7 +1,6 @@
 package com.kfh.educationservice.controller;
 
 import com.kfh.educationservice.dto.CourseDto;
-import com.kfh.educationservice.dto.CreateCourseDto;
 import com.kfh.educationservice.service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,13 @@ public class CourseController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCourse(@Valid @RequestBody CreateCourseDto createCourseDto) {
-        courseService.createCourse(createCourseDto);
+    public CourseDto createCourse(@Valid @RequestBody CourseDto courseDto) {
+        return courseService.createCourse(courseDto);
+    }
+
+    @PutMapping(path = "/{courseId}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void updateCourse(@PathVariable Long courseId, @Valid @RequestBody CourseDto courseDto) {
+        courseService.updateCourse(courseId, courseDto);
     }
 }

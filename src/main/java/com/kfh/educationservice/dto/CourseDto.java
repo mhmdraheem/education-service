@@ -1,6 +1,8 @@
 package com.kfh.educationservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,8 +14,12 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CourseDto {
 
+    private Long id;
+    @NotBlank
     private final String name;
+    @NotNull
     private final BigDecimal price;
+    @NotBlank
     private final String description;
 
     @Override
