@@ -1,5 +1,6 @@
 package com.kfh.educationservice.entity.course;
 
+import com.kfh.educationservice.entity.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "course")
@@ -27,6 +30,9 @@ public class Course {
     private BigDecimal price;
 
     private String description;
+
+    @ManyToMany(mappedBy = "courses")
+    private Set<User> courses = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

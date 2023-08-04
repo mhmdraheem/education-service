@@ -1,6 +1,8 @@
 package com.kfh.educationservice.repository.user;
 
 import com.kfh.educationservice.entity.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,4 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUserByEmail(String email);
 
     boolean existsByEmail(String email);
+
+    @Query("select u from User u join fetch u.courses")
+    Page<User> findStudentsCourses(PageRequest pageRequest);
 }
