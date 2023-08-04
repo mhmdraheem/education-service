@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,8 +36,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(SWAGGER_ENDPOINTS).permitAll()
                         .requestMatchers(
-                                new AntPathRequestMatcher("/api/student/register", HttpMethod.POST.name()),
-                                new AntPathRequestMatcher("/api/authenticate", HttpMethod.POST.name()),
+                                new AntPathRequestMatcher("/api/user/register", HttpMethod.POST.name()),
+                                new AntPathRequestMatcher("/api/user/authenticate", HttpMethod.POST.name()),
                                 new AntPathRequestMatcher("/api/course/**")
                         ).permitAll()
                         .anyRequest().authenticated()
@@ -44,6 +46,12 @@ public class SecurityConfiguration {
                 .httpBasic(withDefaults())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean

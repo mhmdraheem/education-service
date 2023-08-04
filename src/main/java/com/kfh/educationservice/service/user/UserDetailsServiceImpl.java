@@ -1,4 +1,4 @@
-package com.kfh.educationservice.security;
+package com.kfh.educationservice.service.user;
 
 import com.kfh.educationservice.entity.user.User;
 import com.kfh.educationservice.repository.user.UserRepository;

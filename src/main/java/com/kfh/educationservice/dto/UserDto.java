@@ -1,6 +1,7 @@
 package com.kfh.educationservice.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -9,7 +10,8 @@ import lombok.Data;
 import java.util.Objects;
 
 @Data
-public class StudentDto {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserDto {
 
     private Long id;
 
@@ -37,7 +39,7 @@ public class StudentDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StudentDto that = (StudentDto) o;
+        UserDto that = (UserDto) o;
         return Objects.equals(email, that.email);
     }
 
