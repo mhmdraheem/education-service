@@ -19,4 +19,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
             from Course c
             """)
     Page<CourseDetailsProjection> findCoursesPage(PageRequest pageRequest);
+
+    boolean existsByName(String courseName);
 }
