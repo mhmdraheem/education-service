@@ -1,6 +1,7 @@
 package com.kfh.educationservice.service.user;
 
 import com.kfh.educationservice.common.exception.type.DuplicateAccountException;
+import com.kfh.educationservice.common.exception.type.UserNotFoundException;
 import com.kfh.educationservice.common.jwt.JwtService;
 import com.kfh.educationservice.dto.AuthTokenDto;
 import com.kfh.educationservice.dto.AuthenticationRequestDto;
@@ -76,5 +77,11 @@ public class UserService {
 
         String token = jwtService.createToken(authenticationRequestDto.getEmail());
         return new AuthTokenDto(token);
+    }
+
+    public void validateUserExists(Long userId) {
+        if(!userRepository.existsById(userId)) {
+            throw new UserNotFoundException(String.valueOf(userId));
+        }
     }
 }

@@ -6,6 +6,7 @@ import com.kfh.educationservice.service.errormessage.ErrorMessageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -25,6 +26,12 @@ public class GlobalExceptionHandler {
     public ErrorDto handleGenericError(Exception ex) {
         log.error("Exception {} has been caught", ex.getClass().getSimpleName(), ex);
         return createErrorResponse(ex);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public void handleAccessDeniedError(Exception ex) {
+        log.error("Exception {} has been caught", ex.getClass().getSimpleName(), ex);
     }
 
     private ErrorDto createErrorResponse(Exception ex) {

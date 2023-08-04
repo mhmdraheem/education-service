@@ -5,10 +5,12 @@ import com.kfh.educationservice.dto.StudentCourseDto;
 import com.kfh.educationservice.entity.course.Course;
 import com.kfh.educationservice.entity.user.User;
 import com.kfh.educationservice.repository.user.UserRepository;
+import com.kfh.educationservice.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService {
 
+    private final UserService userService;
     private final UserRepository userRepository;
 
     public Page<StudentCourseDto> listStudentsCourses(int pageNum, int pageSize) {
@@ -42,5 +45,11 @@ public class StudentService {
                 .price(course.getPrice())
                 .description(course.getDescription())
                 .build();
+    }
+
+    @Transactional
+    public void deleteStudent(Long studentId) {
+        userService.validateUserExists(studentId);
+        userRepository.deleteById(studentId);
     }
 }

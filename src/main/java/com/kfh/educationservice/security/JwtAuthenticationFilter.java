@@ -38,13 +38,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String requestToken = getRequestToken(request);
 
         if(requestToken != null) {
-            try {
-                String username = jwtService.getUsernameFromToken(requestToken);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                setUserAuthenticated(userDetails, request);
-            } catch (Exception ex) {
-                log.error("Failed to authenticate request", ex);
-            }
+            String username = jwtService.getUsernameFromToken(requestToken);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            setUserAuthenticated(userDetails, request);
         }
     }
 
