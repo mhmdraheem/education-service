@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,27 +30,30 @@ public class CourseController {
         return courseService.listCourses(pageNum, pageSize);
     }
 
+    @Secured({"ROLE_ADMIN"})
     @Operation(
             summary = "create course",
-            description = "An endpoint that creates a new course if no one with same name exists")
+            description = "An endpoint that is available for admins to creates a new course if no one with same name exists")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public CourseDto createCourse(@Valid @RequestBody CourseDto courseDto) {
         return courseService.createCourse(courseDto);
     }
 
+    @Secured({"ROLE_ADMIN"})
     @Operation(
             summary = "Update course by it's id",
-            description = "An endpoint that updates a course by id")
+            description = "An endpoint that is available for admins to updates a course by id")
     @PutMapping(path = "/{courseId}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public void updateCourse(@PathVariable Long courseId, @Valid @RequestBody CourseDto courseDto) {
         courseService.updateCourse(courseId, courseDto);
     }
 
+    @Secured({"ROLE_ADMIN"})
     @Operation(
             summary = "Delete course by it's id",
-            description = "An endpoint that deletes a course by id")
+            description = "An endpoint that is available for admins to deletes a course by id")
     @DeleteMapping(path = "/{courseId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCourse(@PathVariable Long courseId) {

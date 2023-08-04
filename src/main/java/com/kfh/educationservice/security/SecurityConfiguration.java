@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 new AntPathRequestMatcher("/api/user/register", HttpMethod.POST.name()),
                                 new AntPathRequestMatcher("/api/user/authenticate", HttpMethod.POST.name()),
-                                new AntPathRequestMatcher("/api/course/**")
+                                new AntPathRequestMatcher("/api/course", HttpMethod.GET.name())
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
