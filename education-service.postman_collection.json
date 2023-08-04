@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "b63a63a9-d8b5-4db6-b526-05313b6fae3f",
+		"name": "education-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "students APIs",
+			"item": [
+				{
+					"name": "student registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ali@mail.com\",\r\n    \"password\": \"ali@123\",\r\n    \"englishName\": \"ali\",\r\n    \"arabicName\": \"علي\",\r\n    \"telephone\": \"01285962584\",\r\n    \"address\": \"Luxor, Egypt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "student authentication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ali@mail.com\",\r\n    \"password\": \"ali@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign course to student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGlAbWFpbC5jb20iLCJpYXQiOjE2OTExNzE0NTQsImV4cCI6MTY5MTE3MTc1NH0.zJT90BXKJUe_MBfFQDB_cfUU5Nfv3Rcph4eFEtTYKaHT6SAJM3AbDcCeKFmKCZ9lVQ0hmtYQ8APaGCaYO_I2qg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/student/course/3/assign",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"student",
+								"course",
+								"3",
+								"assign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update student courses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGlAbWFpbC5jb20iLCJpYXQiOjE2OTExNzQyMDcsImV4cCI6MTY5MTE3NDUwN30.lKTDoMU-fV1JH5XIc3xgWFYVhG2oCyGHGR-uYhdYSTJgv55TBAGhQXoEK1vpHwiGCF4jkt-hpZw3rJxFNw09cA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"coursesIds\": [\r\n        1, 2\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/student/course",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"student",
+								"course"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "courses API",
+			"item": [
+				{
+					"name": "list courses",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/course?pageNum=0&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"course"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin APIs",
+			"item": [
+				{
+					"name": "courses",
+					"item": [
+						{
+							"name": "create course",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5MTE3NTg5MSwiZXhwIjoxNjkxMTc2MTkxfQ.c5dZtbhlTEUgEu_fBthTDUhR34eY8g_fWbhNI9L4lZwou5nWFgRiqwn-GYTWIsbtw6CfExuBJfivuu5tXuS29w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Javascript\",\r\n    \"price\": 55.00,\r\n    \"description\": \"Javascript\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/course",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"course"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update course",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5MTE3NTg5MSwiZXhwIjoxNjkxMTc2MTkxfQ.c5dZtbhlTEUgEu_fBthTDUhR34eY8g_fWbhNI9L4lZwou5nWFgRiqwn-GYTWIsbtw6CfExuBJfivuu5tXuS29w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Javascript (updated)\",\r\n    \"price\": 75.00,\r\n    \"description\": \"Javascript (updated)\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/course/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"course",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete course",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5MTE3NTg5MSwiZXhwIjoxNjkxMTc2MTkxfQ.c5dZtbhlTEUgEu_fBthTDUhR34eY8g_fWbhNI9L4lZwou5nWFgRiqwn-GYTWIsbtw6CfExuBJfivuu5tXuS29w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/course/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"course",
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "students",
+					"item": [
+						{
+							"name": "list students with courses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5MTE3MzU4NywiZXhwIjoxNjkxMTczODg3fQ.WlQjaUi-2lWOH73sQIFBnfXcH_hCZZn-OnNu1XZsoSDgkloxQRGCDVDsx6p7li5e9pXZ_PpaQbvJxWB4Dn2z_A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/student?pageNum=0&pageSize=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"student"
+									],
+									"query": [
+										{
+											"key": "pageNum",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete student",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5MTE3MzU4NywiZXhwIjoxNjkxMTczODg3fQ.WlQjaUi-2lWOH73sQIFBnfXcH_hCZZn-OnNu1XZsoSDgkloxQRGCDVDsx6p7li5e9pXZ_PpaQbvJxWB4Dn2z_A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/student/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"student",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "admin authentication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@mail.com\",\r\n    \"password\": \"admin@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
