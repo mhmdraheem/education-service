@@ -69,4 +69,10 @@ public class CourseService {
 
         return courseOptional.get();
     }
+
+    @Transactional
+    public void deleteCourse(Long courseId) {
+        Course course = getCourseById(courseId);
+        courseRepository.delete(course);
+    }
 }
